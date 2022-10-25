@@ -7,8 +7,10 @@ class NotesView {
     this.buttonEl = document.querySelector('#add-note-button');
 
     this.buttonEl.addEventListener('click', () => {
-      const note = document.querySelector('#note-input').value
-      this.addNote(note);
+      const note = document.querySelector('#note-input');
+      this.addNote(note.value);
+      
+      note.value = '';
     });
   }
 
@@ -18,6 +20,9 @@ class NotesView {
   }
 
   displayNotes = () => {
+    const oldNotes  = document.querySelectorAll('div.note');
+    oldNotes.forEach(note => note.remove());
+
     const allNotes = this.model.getNotes();
 
     allNotes.forEach(note => {

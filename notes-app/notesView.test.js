@@ -18,6 +18,7 @@ describe('NotesView', () => {
     model.addNotes('Test 1');
     model.addNotes('Test 2');
     view.displayNotes();
+    view.displayNotes();
     expect(document.querySelectorAll('div.note').length).toBe(2);
   });
 
