@@ -5,9 +5,10 @@ class NotesView {
     this.model = model;
     this.client = client;
     this.mainContainerEl = document.querySelector('#main-container');
-    this.buttonEl = document.querySelector('#add-note-button');
+    this.addButtonEl = document.querySelector('#add-note-button');
+    this.resetButtonEl = document.querySelector('#reset-notes-button');
 
-    this.buttonEl.addEventListener('click', () => {
+    this.addButtonEl.addEventListener('click', () => {
       const note = document.querySelector('#note-input');
       this.client.createNote((note.value), () => {
         this.displayError();
@@ -17,6 +18,13 @@ class NotesView {
 
       note.value = '';
     });
+
+    this.resetButtonEl.addEventListener('click', () => {
+      this.client.resetNotes(() => {
+        this.displayError();
+      });
+      this.resetOldNotes();
+    });
   }
 
   addNote = (note) => {
@@ -24,10 +32,13 @@ class NotesView {
     this.displayNotes();
   }
 
-  displayNotes = () => {
+  resetOldNotes = () => {
     const oldNotes  = document.querySelectorAll('div.note');
     oldNotes.forEach(note => note.remove());
+  }
 
+  displayNotes = () => {
+    this.resetOldNotes();
     const allNotes = this.model.getNotes();
 
     allNotes.forEach(note => {

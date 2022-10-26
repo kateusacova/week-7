@@ -42,6 +42,18 @@ class NotesClient {
     })
   }
 
+  resetNotes = (displayError) => {
+    fetch('http://localhost:3000/notes',  {
+    method: 'DELETE'
+    })
+    .then((data) => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      displayError(error);
+    })
+  }
+
 }
 
 module.exports = NotesClient;
