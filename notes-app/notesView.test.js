@@ -31,7 +31,7 @@ describe('NotesView', () => {
 
     const inputEl = document.querySelector('#note-input');
     inputEl.value = 'Test 1';
-    
+
     const buttonEl = document.querySelector('#add-note-button');
     buttonEl.click();
 
@@ -51,5 +51,12 @@ describe('NotesView', () => {
     view.displayNotesFromApi();
     expect(document.querySelectorAll('div.note').length).toBe(1);
     expect(document.querySelectorAll('div.note')[0].textContent).toBe('This note is coming from the server');
+  });
+
+  it('displays error message', () =>  {
+    const model = new NotesModel();
+    const view = new NotesView(model);
+    view.displayError();
+    expect(document.querySelector('p.error').textContent).toBe('Oops, something went wrong!');
   });
 });

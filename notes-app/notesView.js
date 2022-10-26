@@ -9,7 +9,10 @@ class NotesView {
 
     this.buttonEl.addEventListener('click', () => {
       const note = document.querySelector('#note-input');
-      this.client.createNote(note.value);
+      this.client.createNote((note.value), () => {
+        this.displayError();
+      });
+
       this.addNote(note.value);
 
       note.value = '';
@@ -36,10 +39,20 @@ class NotesView {
   }
 
   displayNotesFromApi = () => {
-    this.client.loadNotes(notes => {
+    this.client.loadNotes((notes ) => {
       this.model.setNotes(notes);
       this.displayNotes();
+    }, () => {
+      this.displayError();
     });
+  }
+
+  displayError = () => {
+    
+    const errorMessage =  document.createElement('p');
+    errorMessage.textContent = 'Oops, something went wrong!';
+    errorMessage.className = 'error';
+    this.mainContainerEl.append(errorMessage);
   }
 }
 
