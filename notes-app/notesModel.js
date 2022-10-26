@@ -15,6 +15,10 @@ class NotesModel {
     this.notes = [];
   }
 
+  setNotes = (notes) => {
+    this.notes = notes;
+  }
+
 }
 
 module.exports = NotesModel;

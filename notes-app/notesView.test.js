@@ -35,4 +35,18 @@ describe('NotesView', () => {
     expect(document.querySelectorAll('div.note').length).toBe(1);
     expect(document.querySelectorAll('div.note')[0].textContent).toBe('Test 1');
   });
+
+  it('displays notes from the API', () => {
+    const model = new NotesModel();
+    const fakeClient = {
+      loadNotes: (callback) => {
+        callback(['This note is coming from the server']);
+      }
+    }
+    const view = new NotesView(model, fakeClient);
+
+    view.displayNotesFromApi();
+    expect(document.querySelectorAll('div.note').length).toBe(1);
+    expect(document.querySelectorAll('div.note')[0].textContent).toBe('This note is coming from the server');
+  });
 });
