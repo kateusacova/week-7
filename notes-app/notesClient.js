@@ -15,7 +15,7 @@ class NotesClient {
     fetch('http://localhost:3000/notes',  {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({content: note})
     })
@@ -27,6 +27,21 @@ class NotesClient {
       displayError(error);
     })
   }
+
+  convertEmojis = (note, callback) => {
+    fetch('https://makers-emojify.herokuapp.com/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({text: note})
+    })
+    .then((response) => response.json())
+    .then((convertedEmojis) => {
+      callback(convertedEmojis.emojified_text)
+    })
+  }
+
 }
 
 module.exports = NotesClient;

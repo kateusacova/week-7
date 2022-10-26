@@ -31,11 +31,13 @@ class NotesView {
     const allNotes = this.model.getNotes();
 
     allNotes.forEach(note => {
-      const newDiv = document.createElement('div');
-      newDiv.textContent = note;
-      newDiv.className = 'note'
-      this.mainContainerEl.append(newDiv);
-    });
+      this.client.convertEmojis(note, (convertedNote) => {
+        const newDiv = document.createElement('div');
+        newDiv.textContent = convertedNote;
+        newDiv.className = 'note'
+        this.mainContainerEl.append(newDiv);
+      });
+      })
   }
 
   displayNotesFromApi = () => {
@@ -48,7 +50,6 @@ class NotesView {
   }
 
   displayError = () => {
-    
     const errorMessage =  document.createElement('p');
     errorMessage.textContent = 'Oops, something went wrong!';
     errorMessage.className = 'error';
