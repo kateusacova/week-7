@@ -24,11 +24,14 @@ describe('NotesView', () => {
 
   it('User inputted text is displayed as a note after the button clicked', () => {
     const model = new NotesModel();
-    const view = new NotesView(model);
+    const fakeClient = {
+      createNote: (note) => 'Success: Test 1'
+    }
+    const view = new NotesView(model, fakeClient);
 
     const inputEl = document.querySelector('#note-input');
     inputEl.value = 'Test 1';
-
+    
     const buttonEl = document.querySelector('#add-note-button');
     buttonEl.click();
 
